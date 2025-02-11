@@ -9,8 +9,10 @@ namespace minimal_api.Infrastructure.Db
 
         public ApplicationDbContext(IConfiguration configuration)
         {
-            _configuration = configuration; 
+            _configuration = configuration;
         }
+        public DbSet<Administrator> Administrators { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,7 +39,5 @@ namespace minimal_api.Infrastructure.Db
                 }
             }
         }
-
-        public DbSet<Administrator> Administrators { get; set; }
     }
 }
