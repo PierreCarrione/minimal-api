@@ -14,7 +14,6 @@ namespace minimal_api.Infrastructure.Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Administrator>().HasData(
                 new Administrator
                 {
@@ -28,12 +27,14 @@ namespace minimal_api.Infrastructure.Db
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //base.OnConfiguring(optionsBuilder);
-            var conectionString = _configuration.GetConnectionString("MySql")?.ToString();
-
-            if (!string.IsNullOrEmpty(conectionString))
+            if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString));
+                var conectionString = _configuration.GetConnectionString("MySql")?.ToString();
+
+                if (!string.IsNullOrEmpty(conectionString))
+                {
+                    optionsBuilder.UseMySql(conectionString, ServerVersion.AutoDetect(conectionString));
+                }
             }
         }
 
